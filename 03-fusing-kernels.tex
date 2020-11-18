@@ -1,0 +1,28 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+\paragraph{Fusing Kernels}
+The program has four kernels, that all access the same cells for a single instance of the kernel. They are: \texttt{propagate}, \texttt{rebound}, \texttt{collision}, and \texttt{av\_velocity}.  It would make sense to fuse these kernels together. This will reduce the number of times the same cell is fetched from memory. The speedup achieved by doing this is shown in Table~\ref{table:fusing-kernels}.
+
+\begin{table}[ht]
+\vspace{-3mm}
+\centering
+\caption{Runtimes after fusing the \texttt{propagate}, \texttt{rebound}, \texttt{collision} and \texttt{av\_velocity} kernels}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|p{4.8em}|}
+    \hline
+    Size & Runtime (s) & Speedup \\
+    \hline
+    128x128 & 2.811 & 1.31x \\
+    \hline
+    256x256 & 8.811 & 1.75x \\
+    \hline
+    1024x1024 & 24.911 & 3.11x \\
+    \hline
+\end{tabular}
+\label{table:fusing-kernels}
+\vspace{-5mm}
+\end{table}

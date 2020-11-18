@@ -1,0 +1,53 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+\paragraph{Porting to OpenCL}
+Not all kernels have been ported to OpenCL. This means that there is an unnecessary amount of copying data between the host and the device. By porting all the kernels to OpenCL this can be prevented. Reducing the copying to just one write and one read, for the cells grid. 
+
+
+The reduction used will be reasonably simple. It will use one work-item in a work-group to sum up all the values inside that work-group. The values will be copied back to the host and summed up every iteration. Alternative reduction techniques will be experimented with after all the basic optimisations have been made. The speedup achieved after porting to OpenCL can be seen in Table~\ref{table:porting-to-opencl}. 
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtimes after porting all kernels to OpenCL}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|p{4.8em}|}
+    \hline
+    Size & Runtime (s) & Speedup \\
+    \hline
+    128x128 & 4.831 & 9.45x \\
+    \hline
+    256x256 & 18.130 & 18.30x \\
+    \hline
+    1024x1024 & 78.133 & 16.34x \\
+    \hline
+\end{tabular}
+\label{table:porting-to-opencl}
+\vspace{-3mm}
+\end{table}
+
+Now that all kernels are running in OpenCL there is no longer need for \texttt{clFinish} after each kernel has been enqueued: this is because the queue is in-order, meaning that the kernels will be executed in the order that they were queued in. Having \texttt{clFinish} prevents the next kernel from being queued until the current one has finished.
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtimes after removing \texttt{clFinish}}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|p{4.8em}|}
+    \hline
+    Size & Runtime (s) & Speedup \\
+    \hline
+    128x128 & 3.693 & 1.31x \\
+    \hline
+    256x256 & 15.393 & 1.18x \\
+    \hline
+    1024x1024 & 77.465 & 1.01x \\
+    \hline
+\end{tabular}
+\label{table:removing-clfinish}
+\vspace{-7mm}
+\end{table}

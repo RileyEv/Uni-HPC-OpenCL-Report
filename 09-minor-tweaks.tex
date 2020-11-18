@@ -1,0 +1,8 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+\paragraph{Other Minor Optimisations}
+There are a couple of other minor optimisations that can be made. Firstly, the calculation of \texttt{y\_n}, \texttt{y\_s}, \texttt{x\_e} and \texttt{x\_w} can be optimised. All the grid sizes are powers of two therefore these values can be calculated with Boolean logic and bit operations rather than a ternary operator. An example of this is \texttt{y\_n = (ny - 1) \& (jj + 1)}. This gives on average a 1.01x speedup. Secondly, some calculations can be extracted from the kernels. These calculations are all constant for every iteration and work-item. This will prevent calculating the same value multiple times when it is not necessary. An example of this could be \texttt{w3} and \texttt{w4}. This also gives on average a 1.01x speedup.

@@ -1,0 +1,95 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+
+\paragraph{Reductions}
+The current reduction is not the most optimal choice. Rather than a single work-item summing up all the values, this could be done by multiple work-items. Using a binary sum allows us to do this. An example of this can be seen in Figure~\ref{fig:binary-reduction}
+
+\begin{figure}[ht]
+\centering
+\input{graphs/07-binary-reduction}
+\vspace{-3mm}
+\caption{Binary Reduction.}
+\label{fig:binary-reduction}
+\vspace{-2mm}
+\end{figure}
+
+
+Additionally, every iteration \texttt{tot\_cells} is reduced. However this is constant throughout all iterations. Therefore this only needs to reduced this once.  The speeds achieved for each type of reduction, with only \texttt{tot\_u} reduced can be seen in Table~\ref{table:reductions}.
+
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtimes of both types of kernels, without the \texttt{tot\_cells} reduction.}
+\vspace{1mm}
+\begin{tabular}{|c||p{4.8em}|p{5em}|}
+    \hline
+    & \multicolumn{2}{|c|}{Runtime (s)}\\
+    \hline
+    Size & Local Memory & Binary Reduction \\
+    \hline
+    128x128 & 0.990 & 0.958 \\
+    \hline
+    256x256 & 2.664 & 2.529 \\
+    \hline
+    1024x1024 & 3.696 & 3.655 \\
+    \hline
+\end{tabular}
+\label{table:reductions}
+\vspace{-1mm}
+\end{table}
+
+There is a further optimisation that can be made. The reduction values are only required at the end of the simulation. The work-group sums can be stored for all iterations. These can all be summed up on the device after all iterations have completed, then copied back to the host as an array of \texttt{av\_vels}. This helps since partial sums no longer need to be copied back from the device every iteration. The \texttt{clEnqueueReadBuffer} command is a blocking command. This produces a problem that is similar to the issue with \texttt{clFinish} previously identified. This stops the next kernel from being queued until the memory has been copied from the device. The speedup gained from this can be seen in Table~\ref{table:reduction-memory-optimisations}.
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtime from reducing memory transfer}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|p{4.8em}|}
+    \hline
+    Size & Runtime (s) & Speedup \\
+    \hline
+    128x128 & 0.522 & 1.84x \\
+    \hline
+    256x256 & 1.059 & 2.52x \\
+    \hline
+    1024x1024 & 3.087 & 1.18x \\
+    \hline
+\end{tabular}
+\label{table:reduction-memory-optimisations}
+\vspace{-3mm}
+\end{table}
+
+This has reduced the memory transfer between the device and host, however it still leaves one possible area for improvement: the binary reduction. Although it reduces the amount of idle work-items, there is still a large number of work-items that do not do any work. Half the work-items do no more work after calculating the initial \texttt{tot\_u} value for their cell. If there was a way to ensure that all work-items performed the same work this would surely lead to a speed increase in the reduction. This could be done by storing copies of board for multiple iterations. Then using a single work-item to compute the reduction for each iterations board. This ensures that all work-items stay busy during the reduction. 
+
+This, however, has one major drawback, it will use a significant amount of memory to store every value of \texttt{tot\_u} for every iteration. For the 128x128 input, this would require 2.6GB of memory on the device. This will be even higher for the bigger sizes. To avoid this iterations can be chunked into groups of 3584 iterations. Then perform a reduction on those iterations and copy the values back to the host. 3584 is significant as it is the number of cores on the Tesla P100. This ensures that all cores stay busy for the duration of the reduction. The results from trying this method can be seen in Table~\ref{table:reduction-divergent-workflows}. 
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtime from attempting to reduce the number of idle work-items}
+\vspace{1mm}
+\begin{tabular}{|c||p{3.5em}|p{3.5em}|}
+    \hline
+    & \multicolumn{2}{|c|}{Runtime (s)}\\
+    \hline
+    Size & 1792 Chunk & 3584 Chunk \\
+    \hline
+    128x128 & 0.520 & 0.514 \\
+    \hline
+    256x256 & 1.498 & 1.217 \\
+    \hline
+    1024x1024 & 5.464 & - \\
+    \hline
+\end{tabular}
+\label{table:reduction-divergent-workflows}
+\vspace{-3mm}
+\end{table}
+
+
+The results in Table~\ref{table:reduction-divergent-workflows}, show that this optimisation does not help to speed up the reduction. It is marginally faster than the previous method for the 128x128 size. However it also causes 1.77x slowdown in the 1024x1024 size. The chunk size of 3584 could not be used for the largest sized grid, due to not being able to allocate a buffer large enough. Although the device has enough memory, it is unable to allocate a buffer larger than 4GB -- 1/4 of the GPUs memory. This method will not be used for the reduction as it does improve the performance of the program.

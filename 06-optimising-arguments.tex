@@ -1,0 +1,32 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+\paragraph{Reducing the number of kernel arguments}
+There are two ways to reduce the number of arguments that are buffers. One method is to initialise a single buffer to store the whole grid and access it as a 3D array. Another is to create a structure on the device, which stores pointers to the buffers. The latter has some caveats: a new kernel would need to be created to convert the buffers to pointers on the device. Another kernel would be needed to perform a pointer swap. 
+
+The results from attempting both of these methods can be seen in Table~\ref{table:fixing-slow-host}. From the results it appears that the second option is faster. However, in the next section, when optimising the reduction, the first option produces faster results.
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Results from reducing the number of arguments}
+\vspace{1mm}
+\begin{tabular}{|c||p{4.8em}|p{4.8em}|}
+    \hline
+    & \multicolumn{2}{|c|}{Runtime (s)}\\
+    \hline
+    Size & 3D Buffer & Device Struct \\
+    \hline
+    128x128 & 1.377 & 1.039 \\
+    \hline
+    256x256 & 3.565 & 2.505 \\
+    \hline
+    1024x1024 & 4.617 & 4.740 \\
+    \hline
+\end{tabular}
+\label{table:fixing-slow-host}
+\vspace{-7mm}
+\end{table}

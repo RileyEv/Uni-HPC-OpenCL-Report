@@ -1,0 +1,304 @@
+% This file was created by tikzplotlib v0.9.1.
+\begin{tikzpicture}
+
+\begin{axis}[
+height=5cm,
+width=7cm,
+axis on top,
+colorbar,
+colorbar style={ylabel={Runtime (s)}},
+colormap={mymap}{
+  rgb=(0,0.501960784313725,0);
+  rgb=(1,1,0);
+  rgb=(1,0,0)
+},
+point meta max=0.8926164,
+point meta min=0.2542228,
+tick align=outside,
+x grid style={white!69.0196078431373!black},
+xlabel={Work Group Width},
+xmin=-0.5, xmax=6.5,
+xtick pos=right,
+xtick style={color=black},
+xtick={0,1,2,3,4,5,6},
+xticklabels={1,2,4,8,16,32,64},
+y dir=reverse,
+y grid style={white!69.0196078431373!black},
+ylabel={Work Group Height},
+ymin=-0.5, ymax=3,
+ytick pos=left,
+ytick style={color=black},
+ytick={-0.25,0.25,0.75,1.25,1.75,2.25,2.75},
+yticklabels={1,2,4,8,16,32,64}
+]
+\addplot graphics [includegraphics cmd=\pgfimage,xmin=-0.5, xmax=6.5, ymin=3, ymax=-0.5] {graphs/wkg_128_128-003.png};
+
+\draw[line width=1pt,color=white] (-0.5,0) -- (6.5,0);
+\draw[line width=1pt,color=white] (-0.5,0.5) -- (6.5,0.5);
+\draw[line width=1pt,color=white] (-0.5,1) -- (6.5,1);
+\draw[line width=1pt,color=white] (-0.5,1.5) -- (6.5,1.5);
+\draw[line width=1pt,color=white] (-0.5,2) -- (6.5,2);
+\draw[line width=1pt,color=white] (-0.5,2.5) -- (6.5,2.5);
+
+\draw[line width=1pt,color=white] (0.5,-0.5) -- (0.5,6.5);
+\draw[line width=1pt,color=white] (1.5,-0.5) -- (1.5,6.5);
+\draw[line width=1pt,color=white] (2.5,-0.5) -- (2.5,6.5);
+\draw[line width=1pt,color=white] (3.5,-0.5) -- (3.5,6.5);
+\draw[line width=1pt,color=white] (4.5,-0.5) -- (4.5,6.5);
+\draw[line width=1pt,color=white] (5.5,-0.5) -- (5.5,6.5);
+
+
+\draw (axis cs:0,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\draw (axis cs:1,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.855}};
+\draw (axis cs:2,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.510}};
+\draw (axis cs:3,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.350}};
+\draw (axis cs:4,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.268}};
+\draw (axis cs:5,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.255}};
+\draw (axis cs:6,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.257}};
+
+\draw (axis cs:0,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.893}};
+\draw (axis cs:1,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.544}};
+\draw (axis cs:2,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.370}};
+\draw (axis cs:3,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.337}};
+\draw (axis cs:4,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.300}};
+\draw (axis cs:5,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.341}};
+\draw (axis cs:6,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.255}};
+
+\draw (axis cs:0,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.780}};
+\draw (axis cs:1,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.470}};
+\draw (axis cs:2,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.394}};
+\draw (axis cs:3,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.337}};
+\draw (axis cs:4,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.259}};
+\draw (axis cs:5,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.255}};
+\draw (axis cs:6,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.299}};
+
+\draw (axis cs:0,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.765}};
+\draw (axis cs:1,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.495}};
+\draw (axis cs:2,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.351}};
+\draw (axis cs:3,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.397}};
+\draw (axis cs:4,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.308}};
+\draw (axis cs:5,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.254}};
+\draw (axis cs:6,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.271}};
+
+\draw (axis cs:0,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.808}};
+\draw (axis cs:1,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.485}};
+\draw (axis cs:2,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.361}};
+\draw (axis cs:3,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.362}};
+\draw (axis cs:4,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.329}};
+\draw (axis cs:5,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.280}};
+\draw (axis cs:6,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.371}};
+
+\draw (axis cs:0,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.753}};
+\draw (axis cs:1,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.482}};
+\draw (axis cs:2,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.427}};
+\draw (axis cs:3,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.451}};
+\draw (axis cs:4,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.353}};
+\draw (axis cs:5,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.370}};
+\draw (axis cs:6,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+
+\draw (axis cs:0,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.786}};
+\draw (axis cs:1,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.581}};
+\draw (axis cs:2,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.504}};
+\draw (axis cs:3,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.491}};
+\draw (axis cs:4,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.407}};
+\draw (axis cs:5,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\draw (axis cs:6,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\end{axis}
+
+\end{tikzpicture}

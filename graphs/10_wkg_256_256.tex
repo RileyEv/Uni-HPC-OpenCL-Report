@@ -1,0 +1,303 @@
+% This file was created by tikzplotlib v0.9.1.
+\begin{tikzpicture}
+
+\begin{axis}[
+height=5cm,
+width=7cm,
+axis on top,
+colorbar,
+colorbar style={ylabel={Runtime (s)}},
+colormap={mymap}{
+  rgb=(0,0.501960784313725,0);
+  rgb=(1,1,0);
+  rgb=(1,0,0)
+},
+point meta max=4.5887426,
+point meta min=0.87260825,
+tick align=outside,
+x grid style={white!69.0196078431373!black},
+xlabel={Work Group Width},
+xmin=-0.5, xmax=6.5,
+xtick pos=right,
+xtick style={color=black},
+xtick={0,1,2,3,4,5,6},
+xticklabels={1,2,4,8,16,32,64},
+y dir=reverse,
+y grid style={white!69.0196078431373!black},
+ylabel={Work Group Height},
+ymin=-0.5, ymax=3,
+ytick pos=left,
+ytick style={color=black},
+ytick={-0.25,0.25,0.75,1.25,1.75,2.25,2.75},
+yticklabels={1,2,4,8,16,32,64}
+]
+\addplot graphics [includegraphics cmd=\pgfimage,xmin=-0.5, xmax=6.5, ymin=3, ymax=-0.5] {graphs/wkg_256_256-000.png};
+
+\draw[line width=1pt,color=white] (-0.5,0) -- (6.5,0);
+\draw[line width=1pt,color=white] (-0.5,0.5) -- (6.5,0.5);
+\draw[line width=1pt,color=white] (-0.5,1) -- (6.5,1);
+\draw[line width=1pt,color=white] (-0.5,1.5) -- (6.5,1.5);
+\draw[line width=1pt,color=white] (-0.5,2) -- (6.5,2);
+\draw[line width=1pt,color=white] (-0.5,2.5) -- (6.5,2.5);
+
+\draw[line width=1pt,color=white] (0.5,-0.5) -- (0.5,6.5);
+\draw[line width=1pt,color=white] (1.5,-0.5) -- (1.5,6.5);
+\draw[line width=1pt,color=white] (2.5,-0.5) -- (2.5,6.5);
+\draw[line width=1pt,color=white] (3.5,-0.5) -- (3.5,6.5);
+\draw[line width=1pt,color=white] (4.5,-0.5) -- (4.5,6.5);
+\draw[line width=1pt,color=white] (5.5,-0.5) -- (5.5,6.5);
+
+\draw (axis cs:0,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\draw (axis cs:1,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\draw (axis cs:2,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{3.135}};
+\draw (axis cs:3,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.842}};
+\draw (axis cs:4,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.179}};
+\draw (axis cs:5,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.922}};
+\draw (axis cs:6,-0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.963}};
+
+\draw (axis cs:0,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\draw (axis cs:1,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{3.199}};
+\draw (axis cs:2,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.958}};
+\draw (axis cs:3,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.287}};
+\draw (axis cs:4,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.945}};
+\draw (axis cs:5,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.873}};
+\draw (axis cs:6,0.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.911}};
+
+\draw (axis cs:0,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{4.589}};
+\draw (axis cs:1,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{2.522}};
+\draw (axis cs:2,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.500}};
+\draw (axis cs:3,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.426}};
+\draw (axis cs:4,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.898}};
+\draw (axis cs:5,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.949}};
+\draw (axis cs:6,0.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.893}};
+
+\draw (axis cs:0,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{4.340}};
+\draw (axis cs:1,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{2.398}};
+\draw (axis cs:2,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.534}};
+\draw (axis cs:3,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.409}};
+\draw (axis cs:4,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.953}};
+\draw (axis cs:5,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{0.947}};
+\draw (axis cs:6,1.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.011}};
+
+\draw (axis cs:0,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{4.324}};
+\draw (axis cs:1,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{2.463}};
+\draw (axis cs:2,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.573}};
+\draw (axis cs:3,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.448}};
+\draw (axis cs:4,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.016}};
+\draw (axis cs:5,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.011}};
+\draw (axis cs:6,1.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.250}};
+
+\draw (axis cs:0,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{4.500}};
+\draw (axis cs:1,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{2.518}};
+\draw (axis cs:2,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.680}};
+\draw (axis cs:3,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.507}};
+\draw (axis cs:4,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.145}};
+\draw (axis cs:5,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.311}};
+\draw (axis cs:6,2.25) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+
+\draw (axis cs:0,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{4.280}};
+\draw (axis cs:1,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{2.556}};
+\draw (axis cs:2,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.680}};
+\draw (axis cs:3,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.590}};
+\draw (axis cs:4,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{\textbf{1.317}};
+\draw (axis cs:5,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\draw (axis cs:6,2.75) node[
+  scale=0.7,
+  text=black,
+  rotate=0.0
+]{};
+\end{axis}
+
+\end{tikzpicture}

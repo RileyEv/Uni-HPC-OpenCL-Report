@@ -1,0 +1,35 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [ ] Removed we
+% [ ] Tidied up language
+
+\paragraph{Host Languages}
+
+Previously throughout this report, there have been many occasions where the host code has been the limiting factor when running the program. Therefore two further host languages will be tested: Python and Haskell. These make for two interesting choices. The Python API for OpenCL is significantly more simple than the C API. This means writing the host code for OpenCL will likely be easier, however it could come with some performance hits. The Haskell API is a middle ground for usability, however unlike Python, it is a compiled language meaning it will likely be fast. 
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtimes using different host languages}
+\vspace{1mm}
+\begin{tabular}{|c||p{3.5em}|p{3.5em}|p{4em}|}
+    \hline
+    & \multicolumn{3}{|c|}{Runtime (s)}\\
+    \hline
+    Size & C & Python & Haskell \\
+    \hline
+    128x128 & 0.259 & 2.857 & 0.451 \\
+    \hline
+    256x256 & 0.863 & 5.797 & 0.978 \\
+    \hline
+    1024x1024 & 2.997 & 3.105 & 3.025 \\
+    \hline
+\end{tabular}
+\label{table:host-languages}
+\vspace{-3mm}
+\end{table}
+
+
+The results from this experiment can be seen in Table~\ref{table:host-languages}. For the larger size grid 1024x1024 all languages have a similar runtime. Each of their runtimes are in the order that would have been expected. There are however some unexpected runtimes on the smaller sizes using Python. The 256x256 time is slower than the 1024x1024 time. The 128x128 is also 10x slower than the C version. Conclusions can be drawn by inspecting the number of iterations used on both of the sizes. 256x256 has twice as many iterations as 128x128, whilst having a runtime that is double 128x128's. This is further evidence to suggest that these sizes are bound by the time it takes to schedule the kernel for each iteration, rather than the runtime of the kernels. 
+
+These results would suggest that Python is a sensible language choice, if the kernel execution time is greater than the time taken to queue it. In most other cases, Haskell or C would be a sensible choice as they are able to queue kernels faster. Meaning you are able to use kernels that have a lower runtime without the overall time being bound by the host code. 

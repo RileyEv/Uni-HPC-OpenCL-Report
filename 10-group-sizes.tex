@@ -1,0 +1,40 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+\paragraph{Work Group Sizes}
+Previously, to test the program a work group size of 64x1 (cols x rows) has been used. However now that all other optimisations have been applied to the program different sizes can be evaluated to find the best. The times for some possible work-groups can be seen in Figures \ref{graph:wkg-128-128}, \ref{graph:wkg-256-256} and \ref{graph:wkg-1024-1024}. 
+
+\begin{figure}[htb]
+\vspace{-2mm}
+\input{graphs/10_wkg_128_128}
+\vspace{-5mm}
+\caption{Runtimes of work-groups on size 128x128}
+\label{graph:wkg-128-128}
+\end{figure}
+
+
+\begin{figure}[htb]
+\vspace{-5mm}
+\input{graphs/10_wkg_256_256}
+\vspace{-3mm}
+\caption{Runtimes of work-groups on size 256x256}
+\label{graph:wkg-256-256}
+\end{figure}
+
+\begin{figure}[htb]
+\vspace{-3mm}
+\input{graphs/10_wkg_1024_1024}
+\vspace{-5mm}
+\caption{Runtimes of work-groups on size 1024x1024}
+\label{graph:wkg-1024-1024}
+\vspace{-3mm}
+\end{figure}
+
+
+
+The results from this experiment demonstrate a key point; the size of a work-group is not the only determining factor affecting runtimes. The \textit{shape} of a work-group is also crucial. Using 1x16 and 16x1 as an example, this is clear. The reasons for this are likely to be down to the way each work-group accesses memory. Since the data is stored in a row-major format, the 1x16 would be striding over memory to access cells, whereas 16x1 would not, meaning it makes better use of cache lines. A work-group of 32x1 will be used for the final program.
+
+% It is also clear that each size has a different optimal work group size. To avoid setting the work-group sizes to a size that may be slower for one of the grid sizes. We are able to try out different combinations on the first few iterations, then choose the one that runs the fastest.

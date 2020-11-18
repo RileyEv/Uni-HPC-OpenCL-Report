@@ -1,0 +1,55 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+
+\paragraph{Branching}
+Branching on a GPU tends to be bad: branch instructions have a high latency, meaning it is best to avoid them wherever possible. The \texttt{ast} kernel has a divergent-branch, when checking if a cell is an obstacle. This will mean that there could be many Processing Elements that are performing no computation. Masking and selection can be used to avoid branching. This ensures that all work-items will be carrying out the same work until the point where the final values are stored into memory. The results from implementing this can be seen in Table~\ref{table:branching}.
+
+\begin{table}[ht]
+\vspace{-3mm}
+\centering
+\caption{Runtime and speedup after reducing the amount of branching in the \texttt{ast} kernel}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|p{4.8em}|}
+    \hline
+    Size & Runtime (s) & Speedup \\
+    \hline
+    128x128 & 0.523 & 1.00x \\
+    \hline
+    256x256 & 0.989 & 1.07x \\
+    \hline
+    1024x1024 & 3.138 & 0.98x \\
+    \hline
+\end{tabular}
+\label{table:branching}
+\vspace{-3mm}
+\end{table}
+
+The results do not show a major improvement. This may not be have been expected. There could be one main reason why this is the case: the obstacle files that were given are sparse. They are only present on the border of the grid. This means that in most work-groups the branch would have been uniform. With only a few work items around the edges producing divergent branches. This means that the extra computation that is needed to have a straight line code, does not pay off. 
+
+
+
+Masking could also be used to merge the \texttt{accelerate\_flow} kernel into \texttt{ast}. This will help to reduce the bottle neck observed earlier, when trying to queue many kernels quickly. Fusing this kernel leads to the results in Table~\ref{table:fusing-accel-flow}.
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtime and speedup after fusing the \texttt{accelerate\_flow} kernel}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|p{4.8em}|}
+    \hline
+    Size & Runtime (s) & Speedup \\
+    \hline
+    128x128 & 0.257 & 2.04x \\
+    \hline
+    256x256 & 0.882 & 1.12x \\
+    \hline
+    1024x1024 & 3.027 & 1.04x \\
+    \hline
+\end{tabular}
+\label{table:fusing-accel-flow}
+\vspace{-7mm}
+\end{table}

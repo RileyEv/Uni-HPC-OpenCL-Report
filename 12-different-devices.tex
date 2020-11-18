@@ -1,0 +1,57 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [ ] Removed we
+% [ ] Tidied up language
+
+
+\paragraph{Different Devices}
+OpenCL is also able to run on CPUs, therefore it would make sense to compare this implementation with OpenMP. The results of these tests can be seen in Table \ref{table:opencl-openmp}. The results for OpenCL on a CPU are significantly slower than with OpenMP. One possible reason for this could be the overhead added by OpenCL needed to queue kernels. It is also unlikely that OpenCL will allocate NUMA aware buffers. The OpenCL code on a GPU is also significantly faster than on the CPU. This is because GPUs are designed for SIMD, whilst offering a higher memory bandwidth to the memory on the device. 
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Comparing runtimes of OpenCL and OpenMP}
+\vspace{1mm}
+\begin{tabular}{|c||p{3.5em}|p{5em}|p{6.3em}|}
+    \hline
+    & \multicolumn{2}{|c|}{OpenCL Runtime (s)} & OpenMP Runtimes (s) \\
+    \hline
+    Size & Tesla P100 & Intel Xeon E5-2680 & Intel Xeon E5-2680 \\
+    \hline
+    128x128 & 0.259 & 3.524 & 0.992 \\
+    \hline
+    256x256 & 0.863 & 16.547 & 4.680 \\
+    \hline
+    1024x1024 & 2.997 & 50.830 & 20.744 \\
+    \hline
+\end{tabular}
+\label{table:opencl-openmp}
+\vspace{-3mm}
+\end{table}
+
+
+OpenCL allows for kernels to be run across different devices, therefore testing performance on different devices would be sensible. The two extra GPUs that will be tested are the NVIDIA Tesla K20m and GeForce 1660Ti. The results from testing this can be seen in Table \ref{table:different-devices-gpus}. The results for the Tesla K20m are as expected, it is the slowest of the three GPUs and produces the slowest runtimes. The GeForce 1660Ti however, which is slower than the Tesla P100, has one surprise result: the 128x128 size is faster than on the Tesla P100. One credible reason why this could be the case, is that consumer processors are designed for shorter burst jobs.
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Comparing runtimes of different GPUs}
+\vspace{1mm}
+\begin{tabular}{|c||p{3.5em}|p{3.5em}|p{3.5em}|p{4em}|}
+    \hline
+    & \multicolumn{4}{|c|}{Runtime (s)}\\
+    \hline
+    Size & Tesla P100 & Tesla K20m & Tesla V100 & GeForce 1660Ti \\
+    \hline
+    128x128 & 0.259 & 0.633 & 0.206 & 0.194 \\
+    \hline
+    256x256 & 0.863 & 3.795 & 0.520 & 1.837 \\
+    \hline
+    1024x1024 & 2.997 & 11.779 & 1.987 & 6.552 \\
+    \hline
+\end{tabular}
+\label{table:different-devices-gpus}
+\vspace{-3mm}
+\end{table}
+
+% It is also possible to test a Tesla P100 with a faster CPU (E5-2690). On the 128x128 and 256x256 sizes it produces speedups of 1.10x and 1.07x respectively. These speedups correlate with the speedup of the CPU's clock speed 1.08x. This suggests that it is likely the runtime could be improved by increasing the speed of the host code.

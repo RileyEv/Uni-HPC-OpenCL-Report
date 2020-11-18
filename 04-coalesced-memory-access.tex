@@ -1,0 +1,30 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+\paragraph{Coalesced Memory Access}
+Another step that can be taken to improve the speed of the program is to change the memory access pattern. Currently, the grid of cells is stored in an array of structures. This, however, is not the optimal way to store it. When \texttt{cells[ii + jj * nx].speed[5]} is accessed for different \texttt{ii} and \texttt{jj} values, it will be striding over memory. This means that the program is not making optimal use of cache lines, nor will each work-group be able to load a sequential block of memory for each instruction. A structure of arrays (SoA) format is best suited to SIMD architectures.
+
+To do this, however, poses a problem: the program cannot simply pass a structure of pointers into the kernel as an argument. This is because the \texttt{cl\_mem} values stored on the host may not be a pointer to the memory on the device. Passing each buffer as an argument to the kernel, will avoid this problem. The speedup created by this transformation can be seen in Table~\ref{table:coalesced-access}.
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtimes after using coalesced memory access}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|p{4.8em}|}
+    \hline
+    Size & Runtime (s) & Speedup \\
+    \hline
+    128x128 & 1.916 & 1.47x \\
+    \hline
+    256x256 & 4.651 & 1.89x \\
+    \hline
+    1024x1024 & 4.682 & 5.32x \\
+    \hline
+\end{tabular}
+\label{table:coalesced-access}
+\vspace{-7mm}
+\end{table}
+

@@ -1,0 +1,29 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [ ] Removed we
+% [ ] Tidied up language
+
+\paragraph{OpenACC}
+Another method for running the program on a GPU is OpenACC. It allows for programs to be make parallel through the use of pragmas. A structured data directive can be added to the program. It specifies how memory is allocated on the device and when it should be copied to/from the device. As an example \texttt{\#pragma acc data copy(cells[:nx * ny * 9]) copyin(obstacles[:nx * ny]) create(tmp\_cells[:nx * ny * 9])} states that \texttt{cells} and \texttt{obstacles} are copied to the device when the block is entered and \texttt{cells} is copied back to the host when the block is left. A scratch space called \texttt{tmp\_cells} is created, which does not get copied to or from. A parallel loop pragma can be added to the loops iterating over \texttt{nx} and \texttt{ny}.
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtime of OpenACC version}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|}
+    \hline
+    Size & Runtime (s) \\
+    \hline
+    128x128 & 2.651 \\
+    \hline
+    256x256 & 3.764 \\
+    \hline
+    1024x1024 & 5.068 \\
+    \hline
+\end{tabular}
+\label{table:openacc}
+\vspace{-4mm}
+\end{table}
+
+The times achieved using OpenACC can be seen in Table \ref{table:openacc}. These times are much slower than the times seen using OpenCL. Investigating using NVVP, one problem with the program is that it copies back the average velocity every iteration. This does not allow the program to utilise the full bandwidths when transferring data from the device to the host, causing the program to slow down. This can be avoided by using a kernel pragma, to inform the compiler that computation should stay on the GPU. This however, did not help, instead increasing the runtime. 

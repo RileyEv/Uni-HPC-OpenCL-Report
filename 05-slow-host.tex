@@ -1,0 +1,43 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+\paragraph{Slow Host Code}
+The program is now using an SoA format. The runtimes, however, are unexpected: the time to run 128x128 and 128x256 are almost equal, similarly with 256x256 and 1024x1024. It would be expected that the time of the first size would be noticeably faster, especially in the latter case. After investigating further why this may be the case, one suspicion could be that the host code is slowing down the execution of the program rather than kernels. 
+
+The runtime of the host code can be tested, by removing all computation from the kernels. If the program still runs with similar runtimes, it would suggest that the host code is slowing down the program. The times generated from this experiment, can be seen in Table~\ref{table:commented-kernels}. 
+
+
+\begin{table}[ht]
+\vspace{-5mm}
+\centering
+\caption{Runtimes after removing the computation}
+\vspace{1mm}
+\begin{tabular}{|c||p{5.8em}|}
+    \hline
+    Size & Runtime (s) \\
+    \hline
+    128x128 & 1.922 \\
+    \hline
+    256x256 & 3.887 \\
+    \hline
+    1024x1024 & 3.036 \\
+    \hline
+\end{tabular}
+\label{table:commented-kernels}
+\vspace{-3mm}
+\end{table}
+
+These results are not below the ballpark times given. This would suggest that the host code could be optimised further. This leads to the question: \textit{Is enqueuing kernels an expensive operation? If it is can it be optimised in some way?} After experimenting with the queuing of kernels one thing becomes apparent. There is a linear relationship between the number of arguments and the time needed to queue them. This can be seen in Figure~\ref{graph:slow-host-kernel-args-scaling}. This effect is noticed when the arguments are buffers much sooner than if the arguments are integers. Therefore, it would make sense to try to minimise the number of arguments to a kernel that are buffers.
+
+
+
+\begin{figure}[ht]
+\input{graphs/05-kernel-args-scaling}
+\vspace{-3mm}
+\caption{Time to queue 50000 kernels with n arguments.}
+\label{graph:slow-host-kernel-args-scaling}
+\vspace{-3mm}
+\end{figure}
+

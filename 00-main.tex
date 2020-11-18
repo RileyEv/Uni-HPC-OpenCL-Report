@@ -1,0 +1,82 @@
+\documentclass[a4paper, twocolumn, 9pt]{extarticle}
+% \usepackage[utf8]{inputenc}
+
+% Tiny borders should be default
+\usepackage[a4paper, total={7in, 10.25in}]{geometry}
+
+\setlength {\marginparwidth }{2cm}
+\usepackage{todonotes}
+% Font shit
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xcolor}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont[
+BoldFont=merriweather-regular.ttf,
+ItalicFont=merriweather-light-italic.ttf,
+BoldItalicFont=merriweather-bold.ttf
+]{merriweather-light.ttf}
+\newfontfamily\secfont{merriweather-sans-regular.ttf}
+\usepackage{titlesec}
+\newcommand{\secstyle}{\secfont\Large\itshape}
+\titleformat{\section}%
+  {\secstyle} % format
+  {\thesection} % label
+  {10pt} % sep
+  {\vspace{-4mm}} % before
+  [\normalfont\vspace{-3mm}] % after
+
+\newcommand{\subsecstyle}{\secfont\large\itshape}
+\titleformat{\subsection}%
+  {\subsecstyle} % format
+  {\thesubsection} % label
+  {10pt} % sep
+  {\vspace{-6pt}} % before
+  [\normalfont\vspace{-3mm}] % after
+
+
+
+% Some quick commands for auto-filling names, because I'm gonna spell stuff wrong...
+\newcommand{\lbm}{Lattice-Boltzmann (D2Q9)}
+\newcommand{\icc}{Intel 2018-U3}
+\newcommand{\gccfive}{GCC 5.4.0}
+\newcommand{\gccnine}{GCC 9.1.0}
+
+\usepackage{enumitem}
+% \usepackage{parskip}
+\usepackage{hyphenat}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{dateplot}
+
+\title{\vspace{-10mm}Advanced High Performance Computing - OpenCL\vspace{-4mm}}
+\author{Riley Evans (re17105)}
+\date{\vspace{-3mm}}
+
+
+\begin{document}
+\secfont
+\maketitle
+\normalfont
+
+\input{01-start}
+\input{02-porting-to-opencl}
+\input{03-fusing-kernels}
+\input{04-coalesced-memory-access}
+\input{05-slow-host}
+\input{06-optimising-arguments}
+\input{07-reductions}
+\input{08-branching}
+\input{09-minor-tweaks}
+\input{10-group-sizes}
+
+% Extra things to do ...
+\input{11-roofline}
+\input{12-different-devices}
+\input{13-openacc}
+\input{14-host-languages}
+\input{15-final}
+
+\end{document}

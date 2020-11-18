@@ -1,0 +1,26 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% [x] Removed we
+% [x] Tidied up language
+
+
+\paragraph{Roofline Analysis}
+One method that can be used to evaluate the performance of the program is to use a roofline model. This requires calculating some metrics of the device being used - NVIDIA Tesla P100. It has a Peak TFLOP/s of 9.7 and a peak memory bandwidth of 730 GB/s. This allows the Operational Intensity of the ridge point to be calcualted as 13.3 = 9700/730. This can be used to decide if the program is memory or compute bound.
+
+\begin{figure}[ht]
+\input{graphs/11-roofline}
+\vspace{-3mm}
+\caption{Roofline model of NVIDIA Tesla P100}
+\label{graph:roofline}
+\vspace{-4mm}
+\end{figure}
+
+Using Oclgrind to measure the instructions used inside the kernels for a single iteration, some metrics can be calculated about the program. Each iteration of the 128x128 sized board load/stores 1206896 bytes and uses 2658888 floating point operations. 
+
+
+This gives an operational intensity of 2.20. Therefore the program is memory bound, which would be expected of a lattice type program. The FLOP/s for the program can be calculated using the following formula: $Achieved\ FLOP/s = \frac{FLOPs\ per\ iteration * Iterations}{Runtime}$. This gives 410.6 GFLOP/s. This can be repeated for the other sizes.
+
+
+
+
+Figure \ref{graph:roofline}, shows the four sizes performance on the roofline model. The 1024x1024 and 256x256 grids both achieved over 60\% peak memory bandwidth. They achieved bandwidths of 511.9 GB/s and 443.5 GB/s respectively. The 128x128 grid however has a significantly lower achieved bandwidth of just 186.6 GB/s. It could be possible that the previous effect of slow host code is occurring here as well. 
